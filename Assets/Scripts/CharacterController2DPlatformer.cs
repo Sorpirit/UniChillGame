@@ -48,6 +48,7 @@ public class Charac : MonoBehaviour
         _inputActions.Player.Jump.performed += GatherJumpInput;
         _inputActions.Player.Jump.canceled += GatherJumpInput;
         _inputActions.Player.HorizontalMovement.performed += GatherHorizontalInput;
+        _inputActions.Player.HorizontalMovement.canceled += GatherHorizontalInput;
     }
     
     void Activate() => _active = true;

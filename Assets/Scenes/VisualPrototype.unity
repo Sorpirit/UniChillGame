@@ -2611,13 +2611,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 450772940763109271, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+      propertyPath: m_BiasX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 450772940763109271, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+      propertyPath: m_DeadZoneWidth
+      value: 0.321
+      objectReference: {fileID: 0}
+    - target: {fileID: 450772940763109271, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+      propertyPath: m_LookaheadTime
+      value: 0.424
+      objectReference: {fileID: 0}
+    - target: {fileID: 450772940763109271, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+      propertyPath: m_SoftZoneWidth
+      value: 0.743
+      objectReference: {fileID: 0}
+    - target: {fileID: 450772940763109271, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+      propertyPath: m_DeadZoneHeight
+      value: 0.048
+      objectReference: {fileID: 0}
+    - target: {fileID: 450772940763109271, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+      propertyPath: m_SoftZoneHeight
+      value: 0.146
+      objectReference: {fileID: 0}
+    - target: {fileID: 450772940763109271, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+      propertyPath: m_LookaheadSmoothing
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 450772940763109271, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
+      propertyPath: m_TrackedObjectOffset.y
+      value: 0.95
+      objectReference: {fileID: 0}
     - target: {fileID: 805238432230333990, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.96
+      value: 6.959999
       objectReference: {fileID: 0}
     - target: {fileID: 805238432230333990, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.4
+      value: -2.51
       objectReference: {fileID: 0}
     - target: {fileID: 3146337344106509427, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_RootOrder
@@ -2673,11 +2705,11 @@ PrefabInstance:
       objectReference: {fileID: 2117226665}
     - target: {fileID: 8420289069549874891, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.96
+      value: 6.959999
       objectReference: {fileID: 0}
     - target: {fileID: 8420289069549874891, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.4
+      value: -2.51
       objectReference: {fileID: 0}
     - target: {fileID: 8647839206715311041, guid: 925fa5390220a2a40b7b790f33eb886a, type: 3}
       propertyPath: m_Name
@@ -2969,11 +3001,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5f8f079905bce04f945cd8ff4ba545a, type: 3}
---- !u!1 &1167974476 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3747304625260526174, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
-  m_PrefabInstance: {fileID: 2117226658}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1307086378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13676,7 +13703,7 @@ TilemapCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3bde9051d2785e048bc968812b438f7a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -14664,7 +14691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1718028035049105724, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: -3.46
       objectReference: {fileID: 0}
     - target: {fileID: 1718028035049105724, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14698,62 +14725,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1907618714048566278, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3747304625260526174, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3927661562875903866, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
-    - {fileID: 8650272625991357803, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3747304625260526174, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2117226670}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
 --- !u!4 &2117226665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1718028035049105724, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
   m_PrefabInstance: {fileID: 2117226658}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &2117226668 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4950243203962994959, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
-  m_PrefabInstance: {fileID: 2117226658}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &2117226669 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 8663106167788857640, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
-  m_PrefabInstance: {fileID: 2117226658}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2117226670
+--- !u!114 &2117226670 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6963687116474028170, guid: 114671695519aec40a8583a61cb5de3b, type: 3}
+  m_PrefabInstance: {fileID: 2117226658}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167974476}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2991ff244094e9581bb569057267190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _detectorCount: 3
-  _detectionRayLength: 0.1
-  _rayBuffer: 0.1
-  _coyoteTimeThreshold: 0.1
-  _jumpBuffer: 0.1
-  _jumpEndEarlyGravityMultiplier: 0.45
-  rigidbody: {fileID: 2117226669}
-  collider: {fileID: 2117226668}
 --- !u!1001 &2119435156
 PrefabInstance:
   m_ObjectHideFlags: 0

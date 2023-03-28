@@ -43,7 +43,7 @@ namespace Animation
                 newState = isTurning ? PlayerAnimationState.QuickTurn : PlayerAnimationState.Run;
             }
         
-            if (!isTurning)
+            if (!isTurning && input.X != 0)
             {
                 var animationFlipperLocalScale = _animationFlipper.localScale;
                 animationFlipperLocalScale.x = Mathf.Sign(velocity.x);

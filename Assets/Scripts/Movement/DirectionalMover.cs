@@ -26,7 +26,7 @@ namespace Movement
         private bool _coyoteUsable;
         private bool _endedJumpEarly = true;
         private float _apexPoint;
-        private float _lastJumpPressed;
+        private float _lastJumpPressed = -100f;
 
         private bool CanUseCoyote => !_collisionGround && _coyoteUsable && _ofGroundTime + _coyoteTimeThreshold > Time.time;
         private bool HasBufferedJump => _collisionGround && _lastJumpPressed + _jumpBuffer > Time.time;

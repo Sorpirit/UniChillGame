@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -32,6 +34,10 @@ public class Charac : MonoBehaviour
     [SerializeField] private float _coyoteTimeThreshold = 0.1f;
     [SerializeField] private float _jumpBuffer = 0.1f;
     [SerializeField] private float _jumpEndEarlyGravityMultiplier = 0.45f;
+
+    [Header("ANIMATION")] [SerializeField] private Animator animator;
+    [SerializeField] private Transform animationFlipper;
+    [SerializeField] private float velocityQuickTurn;
     
     private Rigidbody2D _rb;
     private Collider2D _collider;
@@ -40,6 +46,9 @@ public class Charac : MonoBehaviour
     private bool _endedJumpEarly = true;
     private float _apexPoint; // Becomes 1 at the apex of a jump
     private float _lastJumpPressed;
+
+    private PlayerAnimationState _previousState = PlayerAnimationState.Idle;
+    
     private bool CanUseCoyote => !_collisionGround && _coyoteUsable && _ofGroundTime + _coyoteTimeThreshold > Time.time;
     private bool HasBufferedJump => _collisionGround && _lastJumpPressed + _jumpBuffer > Time.time;
     
@@ -55,6 +64,7 @@ public class Charac : MonoBehaviour
     
     private bool _collisionGround;
     private float _ofGroundTime;
+    private float _lastFrameHorizontalInput;
     
     private PlayerInputActions _inputActions;
     
@@ -96,6 +106,9 @@ public class Charac : MonoBehaviour
         CalculateJump();
 
         Velocity = new Vector3(_currentHorizontalSpeed, _currentVerticalSpeed);
+
+        CalculateAnimation( (_currentHorizontalSpeed * Input.X) < 0,Velocity);
+        ResetInput();
     }
 
 
@@ -123,6 +136,17 @@ public class Charac : MonoBehaviour
             JumpUp = Input.JumpUp,
             X = context.ReadValue<float>()
         };
+    }
+    
+    private void ResetInput()
+    {
+        Input = new FrameInput
+        {
+            JumpDown = false,
+            JumpUp = false,
+            X = Input.X
+        };
+        _lastFrameHorizontalInput = Input.X;
     }
 
     #endregion
@@ -205,5 +229,42 @@ public class Charac : MonoBehaviour
         }
     }
 
+    #endregion
+    
+    #region Animation
+
+    private void CalculateAnimation(bool isTurning, Vector2 velocity)
+    {
+        PlayerAnimationState newState = PlayerAnimationState.Idle;
+        if (velocity.y != 0)
+        {
+            newState = velocity.y > 0 ? PlayerAnimationState.Jump : PlayerAnimationState.Fall;
+        }
+        else if (velocity.x != 0)
+        {
+            Debug.Log(isTurning + " tunring");
+            Debug.Log(Input.X + " input");
+            Debug.LogWarning(Mathf.Abs(velocity.x) + " velocity");
+            newState = isTurning && Mathf.Abs(velocity.x) >= velocityQuickTurn ? PlayerAnimationState.QuickTurn : PlayerAnimationState.Run;
+            Debug.Log((newState == PlayerAnimationState.QuickTurn) + " animation");
+            if (!isTurning)
+            {
+                var animationFlipperLocalScale = animationFlipper.localScale;
+                animationFlipperLocalScale.x = Mathf.Sign(velocity.x);
+                animationFlipper.localScale = animationFlipperLocalScale;
+            }
+        }
+        
+        SetAnimationState(newState);
+    }
+    
+    private void SetAnimationState(PlayerAnimationState state)
+    {
+        if(_previousState == state)
+            return;
+        
+        _previousState = state;
+        animator.SetInteger("State",  (int) state);
+    }
     #endregion
 }

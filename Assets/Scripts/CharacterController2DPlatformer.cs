@@ -1,14 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-public class Charac : MonoBehaviour
+public class CharacterController2DPlatformer : MonoBehaviour
 {
-    public struct FrameInput
+    private struct MovementInput
     {
         public float X;
         public bool JumpDown;
@@ -29,15 +26,14 @@ public class Charac : MonoBehaviour
 
     [Header("GRAVITY")] [SerializeField] private float _fallClamp = -40f;
     
-    [FormerlySerializedAs("_jumpHeight")] [Header("JUMPING")] [SerializeField] private float _jumpVelocity = 30;
+    [Header("JUMPING")] [SerializeField] private float _jumpVelocity = 30;
     [SerializeField] private float _jumpApexThreshold = 10f;
     [SerializeField] private float _coyoteTimeThreshold = 0.1f;
     [SerializeField] private float _jumpBuffer = 0.1f;
     [SerializeField] private float _jumpEndEarlyGravityMultiplier = 0.45f;
 
-    [Header("ANIMATION")] [SerializeField] private Animator animator;
+    [Header("ANIMATION")] [SerializeField] private AnimationStateManager animator;
     [SerializeField] private Transform animationFlipper;
-    [SerializeField] private float velocityQuickTurn;
     
     private Rigidbody2D _rb;
     private Collider2D _collider;
@@ -47,8 +43,6 @@ public class Charac : MonoBehaviour
     private float _apexPoint; // Becomes 1 at the apex of a jump
     private float _lastJumpPressed;
 
-    private PlayerAnimationState _previousState = PlayerAnimationState.Idle;
-    
     private bool CanUseCoyote => !_collisionGround && _coyoteUsable && _ofGroundTime + _coyoteTimeThreshold > Time.time;
     private bool HasBufferedJump => _collisionGround && _lastJumpPressed + _jumpBuffer > Time.time;
     
@@ -58,28 +52,22 @@ public class Charac : MonoBehaviour
         set => _rb.velocity = value; 
     }
 
-    private FrameInput Input { get; set; }
+    private MovementInput Input { get; set; }
     
     private float _currentHorizontalSpeed, _currentVerticalSpeed;
     
     private bool _collisionGround;
     private float _ofGroundTime;
-    private float _lastFrameHorizontalInput;
-    
-    private PlayerInputActions _inputActions;
     
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         
-        _inputActions = new PlayerInputActions();
-        _inputActions.Enable();
-
-        _inputActions.Player.Jump.performed += GatherJumpInput;
-        _inputActions.Player.Jump.canceled += GatherJumpInput;
-        _inputActions.Player.HorizontalMovement.performed += GatherHorizontalInput;
-        _inputActions.Player.HorizontalMovement.canceled += GatherHorizontalInput;
+        GlobalPlayerInput.InputInstance.Player.Jump.performed += GatherJumpInput;
+        GlobalPlayerInput.InputInstance.Player.Jump.canceled += GatherJumpInput;
+        GlobalPlayerInput.InputInstance.Player.HorizontalMovement.performed += GatherHorizontalInput;
+        GlobalPlayerInput.InputInstance.Player.HorizontalMovement.canceled += GatherHorizontalInput;
     }
 
     private void Update()
@@ -116,11 +104,11 @@ public class Charac : MonoBehaviour
 
     private void GatherJumpInput(InputAction.CallbackContext context)
     {
-        Input = new FrameInput
+        Input = new MovementInput
         {
             JumpDown = context.performed,
             JumpUp = context.canceled,
-            X = _inputActions.Player.HorizontalMovement.ReadValue<float>()
+            X = GlobalPlayerInput.InputInstance.Player.HorizontalMovement.ReadValue<float>()
         };
         if (Input.JumpDown)
         {
@@ -130,7 +118,7 @@ public class Charac : MonoBehaviour
     
     private void GatherHorizontalInput(InputAction.CallbackContext context)
     {
-        Input = new FrameInput
+        Input = new MovementInput
         {
             JumpDown = Input.JumpDown,
             JumpUp = Input.JumpUp,
@@ -140,13 +128,12 @@ public class Charac : MonoBehaviour
     
     private void ResetInput()
     {
-        Input = new FrameInput
+        Input = new MovementInput
         {
             JumpDown = false,
             JumpUp = false,
             X = Input.X
         };
-        _lastFrameHorizontalInput = Input.X;
     }
 
     #endregion
@@ -242,29 +229,16 @@ public class Charac : MonoBehaviour
         }
         else if (velocity.x != 0)
         {
-            Debug.Log(isTurning + " tunring");
-            Debug.Log(Input.X + " input");
-            Debug.LogWarning(Mathf.Abs(velocity.x) + " velocity");
-            newState = isTurning && Mathf.Abs(velocity.x) >= velocityQuickTurn ? PlayerAnimationState.QuickTurn : PlayerAnimationState.Run;
-            Debug.Log((newState == PlayerAnimationState.QuickTurn) + " animation");
-            if (!isTurning)
-            {
-                var animationFlipperLocalScale = animationFlipper.localScale;
-                animationFlipperLocalScale.x = Mathf.Sign(velocity.x);
-                animationFlipper.localScale = animationFlipperLocalScale;
-            }
+            newState = isTurning ? PlayerAnimationState.QuickTurn : PlayerAnimationState.Run;
         }
         
-        SetAnimationState(newState);
-    }
-    
-    private void SetAnimationState(PlayerAnimationState state)
-    {
-        if(_previousState == state)
-            return;
-        
-        _previousState = state;
-        animator.SetInteger("State",  (int) state);
+        if (!isTurning)
+        {
+            var animationFlipperLocalScale = animationFlipper.localScale;
+            animationFlipperLocalScale.x = Mathf.Sign(velocity.x);
+            animationFlipper.localScale = animationFlipperLocalScale;
+        }
+        animator.ApplyAnimationState(newState);
     }
     #endregion
 }

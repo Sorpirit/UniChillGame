@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8663106167788857640}
   - component: {fileID: 4950243203962994959}
   - component: {fileID: 3927661562875903866}
+  - component: {fileID: 8650272625991357803}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 6886744787576098598}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8663106167788857640
 Rigidbody2D:
@@ -106,7 +107,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.64, y: 1.22}
+  m_Size: {x: 0.58, y: 1.16}
   m_EdgeRadius: 0
 --- !u!114 &3927661562875903866
 MonoBehaviour:
@@ -120,24 +121,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432f988e57b3c0949ad04d84620b8cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _acceleration: 90
-  _moveClamp: 13
-  _deAcceleration: 60
-  _apexBonus: 2
+  _acceleration: 20
+  _moveClamp: 6
+  _deAcceleration: 40
+  _apexBonus: 1.1
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
   _detectorCount: 3
   _detectionRayLength: 0.1
   _rayBuffer: 0.11
-  _fallClamp: -40
-  _jumpVelocity: 30
+  _fallClamp: -25
+  _jumpVelocity: 16
   _jumpApexThreshold: 10
   _coyoteTimeThreshold: 0.1
   _jumpBuffer: 0.1
-  _jumpEndEarlyGravityMultiplier: 0.45
-  animator: {fileID: 7701293030974873287}
+  _jumpEndEarlyGravityMultiplier: 0.35
+  animator: {fileID: 4459466794943344953}
   animationFlipper: {fileID: 6886744787576098598}
+--- !u!114 &8650272625991357803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3747304625260526174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cab82ede47ed4df895119f9665b82248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackA:
+    animationState: 1
+    rechargeTime: 0.4
+    damageAmount: 12
+  attackB:
+    animationState: 2
+    rechargeTime: 0.8
+    damageAmount: 27
+  inputBuffer: 1.2
+  animator: {fileID: 4459466794943344953}
+  _input:
+    LastTimeAttackATriggered: 0
+    LastTimeAttackBTriggered: 0
 --- !u!1 &4710530030236228864
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +207,7 @@ GameObject:
   - component: {fileID: 4441937368334070413}
   - component: {fileID: 1907618714048566278}
   - component: {fileID: 7701293030974873287}
+  - component: {fileID: 4459466794943344953}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -276,3 +303,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &4459466794943344953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7516233402543805632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6efeead5285349ef8621b7ecf8963353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7701293030974873287}

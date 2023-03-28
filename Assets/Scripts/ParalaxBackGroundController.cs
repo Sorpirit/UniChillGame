@@ -1,13 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ParalaxBackGroundController : MonoBehaviour
 {
-    [SerializeField] private Camera camera;
-    
     [SerializeField] private Transform[] parallaxBg;
     [SerializeField] private Transform[] staticBg;
     
@@ -24,12 +18,12 @@ public class ParalaxBackGroundController : MonoBehaviour
     
     private void Start()
     {
-        _lastCameraPosition = camera.transform.position;
+        _lastCameraPosition = GlobalPlayerInput.Instance.GlobalCamera.transform.position;
     }
 
     private void FixedUpdate()
     {
-        Vector3 cameraPosition = camera.transform.position;
+        Vector3 cameraPosition = GlobalPlayerInput.Instance.GlobalCamera.transform.position;
         Vector3 delta = cameraPosition - _lastCameraPosition;
         Vector2 multiplayer = Vector2.one - parallaxEffectOffset;
         foreach (var bgTransform in parallaxBg)

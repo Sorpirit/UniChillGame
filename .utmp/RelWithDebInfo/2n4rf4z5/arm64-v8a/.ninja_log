@@ -1,0 +1,5 @@
+# ninja log v5
+225	395	7016923660459571	C:/Users/daniel.vozovikov/Documents/Projects/VR/ChillGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2n4rf4z5/obj/arm64-v8a/libswappywrapper.so	99988ca6fac7317c
+1	223	7016923659376771	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	dc7f94bf1cadc64a
+1	131	7016936289179652	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	dc7f94bf1cadc64a
+132	356	7016936290645949	C:/Users/daniel.vozovikov/Documents/Projects/VR/ChillGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2n4rf4z5/obj/arm64-v8a/libswappywrapper.so	99988ca6fac7317c

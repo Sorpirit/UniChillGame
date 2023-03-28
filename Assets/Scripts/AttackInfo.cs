@@ -1,27 +1,23 @@
 using System;
-
-public partial class CharacterFightingController
+[Serializable]
+public struct AttackInfo
 {
-    [Serializable]
-    public struct AttackInfo
+    public PlayerAnimationState animationState;
+    public float rechargeTime;
+    public float damageAmount;
+
+    public bool Equals(AttackInfo other)
     {
-        public PlayerAnimationState State;
-        public float rechargTime;
-        public float damageAmount;
+        return animationState == other.animationState && rechargeTime.Equals(other.rechargeTime) && damageAmount.Equals(other.damageAmount);
+    }
 
-        public bool Equals(AttackInfo other)
-        {
-            return State == other.State && rechargTime.Equals(other.rechargTime) && damageAmount.Equals(other.damageAmount);
-        }
+    public override bool Equals(object obj)
+    {
+        return obj is AttackInfo other && Equals(other);
+    }
 
-        public override bool Equals(object obj)
-        {
-            return obj is AttackInfo other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine((int) State, rechargTime, damageAmount);
-        }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine((int) animationState, rechargeTime, damageAmount);
     }
 }

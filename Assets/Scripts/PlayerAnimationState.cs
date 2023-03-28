@@ -1,15 +1,15 @@
-namespace DefaultNamespace
+using System;
+
+[Serializable]
+public enum PlayerAnimationState
 {
-    public enum PlayerAnimationState
-    {
-        Idle = 0,
-        Jump = 1,
-        Fall = 2,
-        Run = 3,
-        Attack = 4,
-        Attack2 = 5,
-        GetHit = 6,
-        Death = 7,
-        QuickTurn = 8,
-    }
+    Idle = 0,
+    Attack = 1,
+    Attack2 = 2,
+    Run = 3,
+    QuickTurn = 4,
+    Jump = 5,
+    Fall = 6,
+    GetHit = 7,
+    Death = 8,
 }

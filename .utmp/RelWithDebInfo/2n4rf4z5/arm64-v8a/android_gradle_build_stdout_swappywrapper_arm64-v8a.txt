@@ -1,0 +1,3 @@
+ninja: Entering directory `C:\Users\daniel.vozovikov\Documents\Projects\VR\ChillGame\.utmp\RelWithDebInfo\2n4rf4z5\arm64-v8a'
+[1/2] Building CXX object FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o
+[2/2] Linking CXX shared library C:\Users\daniel.vozovikov\Documents\Projects\VR\ChillGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\2n4rf4z5\obj\arm64-v8a\libswappywrapper.so

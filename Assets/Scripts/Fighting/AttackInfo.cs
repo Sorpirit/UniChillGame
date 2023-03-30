@@ -1,4 +1,6 @@
 using System;
+using Animation;
+
 [Serializable]
 public struct AttackInfo
 {
